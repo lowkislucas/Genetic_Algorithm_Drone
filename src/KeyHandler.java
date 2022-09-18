@@ -2,7 +2,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
-	boolean up, down, left, right;
+	boolean leftThrustOn, rightThrustOn, leftThrusterLeft, leftThrusterRight, rightThrusterLeft, rightThrusterRight;
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -13,16 +13,22 @@ public class KeyHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		int c = e.getKeyCode();
 		if(c==KeyEvent.VK_UP) {
-			up = true;
-		}
-		if(c==KeyEvent.VK_DOWN) {
-			down = true;
+			rightThrustOn = true;
 		}
 		if(c==KeyEvent.VK_LEFT) {
-			left = true;
+			rightThrusterLeft = true;
 		}
 		if(c==KeyEvent.VK_RIGHT) {
-			right = true;
+			rightThrusterRight = true;
+		}
+		if(c==KeyEvent.VK_W) {
+			leftThrustOn = true;
+		}
+		if(c==KeyEvent.VK_A) {
+			leftThrusterLeft = true;
+		}
+		if(c==KeyEvent.VK_D) {
+			leftThrusterRight = true;
 		}
 
 	}
@@ -31,16 +37,22 @@ public class KeyHandler implements KeyListener{
 	public void keyReleased(KeyEvent e) {
 		int c = e.getKeyCode();
 		if(c==KeyEvent.VK_UP) {
-			up = false;
-		}
-		if(c==KeyEvent.VK_DOWN) {
-			down = false;
+			rightThrustOn = false;
 		}
 		if(c==KeyEvent.VK_LEFT) {
-			left = false;
+			rightThrusterLeft = false;
 		}
 		if(c==KeyEvent.VK_RIGHT) {
-			right = false;
+			rightThrusterRight = false;
+		}
+		if(c==KeyEvent.VK_W) {
+			leftThrustOn = false;
+		}
+		if(c==KeyEvent.VK_A) {
+			leftThrusterLeft = false;
+		}
+		if(c==KeyEvent.VK_D) {
+			leftThrusterRight = false;
 		}
 		
 	}

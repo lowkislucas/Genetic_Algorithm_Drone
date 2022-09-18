@@ -7,13 +7,17 @@ import javax.swing.JPanel;
 
 public class DronePanel extends JPanel implements Runnable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	KeyHandler keyH = new KeyHandler();
 	Thread droneThread;
 	Drone drone = new Drone(this,keyH);
-	int FPS = 60;
+	final int FPS = 60;
 	
 	public DronePanel() {
-		this.setPreferredSize(new Dimension(852,480));
+		this.setPreferredSize(new Dimension(1280,720));
 		this.setBackground(Color.black);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
@@ -31,7 +35,9 @@ public class DronePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		drone.draw(g2);
+		drone.drawBody(g2);
+		drone.drawRightThruster(g2);
+		drone.drawLeftThruster(g2);
 		g2.dispose();
 	}
 

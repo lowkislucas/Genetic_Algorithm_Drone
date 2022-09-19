@@ -1,9 +1,6 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -97,7 +94,7 @@ public class Drone {
 //		if(rightThrusterSpeed>0) {
 //			rightThrusterSpeed-=0.05;
 //		}
-		droneAngle-=leftThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-leftThrusterAngle)/50+rightThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-rightThrusterAngle)/50;
+		droneAngle-=leftThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-leftThrusterAngle)/10+rightThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-rightThrusterAngle)/10;
 		x -= leftThrusterSpeed * Math.sin(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.sin(-droneAngle+rightThrusterAngle);
 		y -= leftThrusterSpeed * Math.cos(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.cos(-droneAngle+rightThrusterAngle);
 		System.out.println(Math.toDegrees(droneAngle)+"             "+Math.toDegrees(leftThrusterAngle)+"             "+Math.toDegrees(rightThrusterAngle));

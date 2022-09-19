@@ -94,7 +94,7 @@ public class Drone {
 //		if(rightThrusterSpeed>0) {
 //			rightThrusterSpeed-=0.05;
 //		}
-		droneAngle-=leftThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-leftThrusterAngle)/10+rightThrusterSpeed*Math.cos(-droneAngle+Math.PI/2-rightThrusterAngle)/10;
+		droneAngle-=leftThrusterSpeed*Math.cos(Math.PI/2-leftThrusterAngle)/80+rightThrusterSpeed*Math.cos(Math.PI/2-rightThrusterAngle)/80;
 		x -= leftThrusterSpeed * Math.sin(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.sin(-droneAngle+rightThrusterAngle);
 		y -= leftThrusterSpeed * Math.cos(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.cos(-droneAngle+rightThrusterAngle);
 		System.out.println(Math.toDegrees(droneAngle)+"             "+Math.toDegrees(leftThrusterAngle)+"             "+Math.toDegrees(rightThrusterAngle));

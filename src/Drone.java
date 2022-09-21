@@ -15,6 +15,9 @@ public class Drone {
 	double rightThrusterSpeed = 0;
 	double leftThrusterSpeed = 0;
 	
+	double maxRightThrusterSpeed = 3;
+	double maxLeftThrusterSpeed = 3;
+	
 	double droneAngle = 0;
 	
 	DronePanel dronepanel;
@@ -77,26 +80,46 @@ public class Drone {
 			rightThrusterAngle -= 0.05;
 		}
 		if(keyH.leftThrustOn==true) {
-			leftThrusterSpeed=4;
-		}
-		else {
-			leftThrusterSpeed=0;
+			leftThrusterSpeed+=0.05;
 		}
 		if(keyH.rightThrustOn==true) {
-			rightThrusterSpeed=4;
+			rightThrusterSpeed+=0.05;
 		}
-		else {
-			rightThrusterSpeed=0;
+		if(leftThrusterSpeed>0) {
+			leftThrusterSpeed-=0.005;
 		}
-//		if(leftThrusterSpeed>0) {
-//			leftThrusterSpeed-=0.05;
-//		}
-//		if(rightThrusterSpeed>0) {
-//			rightThrusterSpeed-=0.05;
-//		}
-		droneAngle-=leftThrusterSpeed*Math.cos(Math.PI/2-leftThrusterAngle)/80+rightThrusterSpeed*Math.cos(Math.PI/2-rightThrusterAngle)/80;
-		x -= leftThrusterSpeed * Math.sin(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.sin(-droneAngle+rightThrusterAngle);
-		y -= leftThrusterSpeed * Math.cos(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.cos(-droneAngle+rightThrusterAngle);
+		if(rightThrusterSpeed>0) {
+			rightThrusterSpeed-=0.005;
+		}
+		if(leftThrusterSpeed>maxLeftThrusterSpeed) {
+			leftThrusterSpeed = maxLeftThrusterSpeed;
+		}
+		if(rightThrusterSpeed>maxRightThrusterSpeed) {
+			rightThrusterSpeed = maxRightThrusterSpeed;
+		}
+		if(droneAngle==0) {
+			if(leftThrusterAngle==0&&keyH.leftThrustOn==true) {
+				leftThrusterAngle-=0.15;
+			}
+			if(rightThrusterAngle==0&&keyH.rightThrustOn==true) {
+				rightThrusterAngle+=0.15;
+			}
+		}
+		droneAngle-=leftThrusterSpeed*Math.cos(Math.PI/2-leftThrusterAngle)/70+rightThrusterSpeed*Math.cos(Math.PI/2-rightThrusterAngle)/70;
+		//x -= leftThrusterSpeed * Math.sin(-droneAngle);
+		if(keyH.leftThrustOn==true) {
+			x -= leftThrusterSpeed * Math.sin(-droneAngle+leftThrusterAngle);
+			y -= leftThrusterSpeed * Math.cos(-droneAngle+leftThrusterAngle);
+		}
+		if(keyH.rightThrustOn==true) {
+			x -=  rightThrusterSpeed * Math.sin(-droneAngle+rightThrusterAngle);
+			y -= rightThrusterSpeed * Math.cos(-droneAngle+rightThrusterAngle);
+			
+		}
+		x -= leftThrusterSpeed * Math.sin(-droneAngle) + rightThrusterSpeed * Math.sin(-droneAngle);
+		y -= leftThrusterSpeed * Math.cos(-droneAngle) + rightThrusterSpeed * Math.cos(-droneAngle);
+		//x -= leftThrusterSpeed * Math.sin(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.sin(-droneAngle+rightThrusterAngle);
+		//y -= leftThrusterSpeed * Math.cos(-droneAngle+leftThrusterAngle) + rightThrusterSpeed * Math.cos(-droneAngle+rightThrusterAngle);
 		System.out.println(Math.toDegrees(droneAngle)+"             "+Math.toDegrees(leftThrusterAngle)+"             "+Math.toDegrees(rightThrusterAngle));
 		
 	}
@@ -108,7 +131,7 @@ public class Drone {
 	public void drawLeftThruster(Graphics2D g2) {
 		AffineTransform at = AffineTransform.getTranslateInstance(x-21, y+32);
 		at.rotate(-leftThrusterAngle,leftThrusterImg.getWidth()/2, leftThrusterImg.getHeight()/2);
-		if(leftThrusterSpeed>0) {
+		if(keyH.leftThrustOn==true) {
 			g2.drawImage(leftThrusterOnImg, at, null);
 		}
 		else {
@@ -118,7 +141,7 @@ public class Drone {
 	public void drawRightThruster(Graphics2D g2) {
 		AffineTransform at = AffineTransform.getTranslateInstance(x+85, y+32);
 		at.rotate(-rightThrusterAngle,rightThrusterImg.getWidth()/2, rightThrusterImg.getHeight()/2);
-		if(rightThrusterSpeed>0) {
+		if(keyH.rightThrustOn==true) {
 			g2.drawImage(rightThrusterOnImg, at, null);
 		}	
 		else {
